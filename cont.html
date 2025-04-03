@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css\styles.css">
   <link rel="stylesheet" href="css\responsive.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 
 <body>
@@ -42,85 +43,104 @@
     </div>
   </header>
 
-<section class="contactform">
-  <div class="addressheader">
-    <h1>Связаться с нами</h1>
-  </div>
-  <div class="addresslayout">
-      <div class="addresscontent">
-      <div class="addresscolumnleft">
-        <form>
-          <div class="inputgroup">
-          <label for="name">Имя *</label>
-          <input type="text" id="name" required>
-          </div>
-          <div class="inputgroup">
-            <label for="company">Название компании</label>
-            <input type="text" id="company">
-          </div>
-          <div class="inputgroup">
-            <label for="position">Позиция</label>
-            <input type="text" id="position">
-          </div>
-          <div class="inputgroup">
-            <label for="city">Город</label>
-            <input type="text" id="city">
-          </div>
-          <div class="inputgroup">
-            <label for="country">Страна</label>
-            <input type="text" id="country">
-          </div>
-          <div class="inputgroup">
-            <label for="phone">Телефон</label>
-            <input type="tel" id="phone">
-          </div>
-          <div class="inputgroup">
-            <label for="email">Электронная почта *</label>
-            <input type="email" id="email" required>
-          </div>
-          </div>
-          <div class="addresscolumnright">
-          <div class="inputgroup">
-            <label for="role">Ты</label>
-          <select id="role">
-            <option>производитель семян</option>
-            <option>фермер</option>
-            <option>агент по продаже</option>
-            <option>другой</option>
-          </select>
-          </div>
-          <div class="inputgroup">
-            <label for="other">Если другое, укажите пожалуйста.</label>
-            <input type="text" id="other">
-          </div>
-          <div class="inputgroup">
-            <label for="interest">Вас интересует</label>
-            <textarea id="interest" rows="4"></textarea>
-          </div>
-          <div class="inputgroup">
-            <label for="captcha">Пожалуйста, введите этот код: <strong>7 C J 3</strong></label>
-            <input type="text" id="captcha">
-          </div>
-          <input type="submit" value="Send Message">
-          </div>
-        </form>
+  <div id="app">
+    <section class="contactform">
+      <div class="addressheader">
+        <h1>Связаться с нами</h1>
+        <table class="cart-table" v-if="cart.length > 0">
+          <thead>
+            <tr>
+              <th>Фото</th>
+              <th>Краткое описание</th>
+              <th>Удалить</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in cart" :key="item.id">
+              <td>
+                <img :src="item.image" :alt="item.title" class="mini-img" style="width:50px; height:auto;">
+              </td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.short_text }}</td>
+              <td>
+                <button @click="removeFromCart(index)" class="remove-btn">×</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-  </div>
-</section>
 
+      <div v-if="orderSubmitted">
+        <h2>Спасибо за ваш заказ!</h2>
+        <p><strong>Имя:</strong> {{ contactFields.name }}</p>
+        <p><strong>Позиция:</strong> {{ contactFields.position }}</p>
+        <p><strong>Адрес:</strong> {{ contactFields.addressLine1 }}</p>
+        <p><strong>Город:</strong> {{ contactFields.city }}</p>
+        <p><strong>Страна:</strong> {{ contactFields.country }}</p>
+        <p><strong>Телефон:</strong> {{ contactFields.phone }}</p>
+        <p><strong>Электронная почта:</strong> {{ contactFields.email }}</p>
+        <p><strong>Вы:</strong> {{ contactFields.role }}</p>
+        <p><strong>Если другое, укажите, пожалуйста:</strong> {{ contactFields.other }}</p>
+      </div>
 
-<section class="address">
-    <div>
-        <h3>Наш адрес</h3>
+      <div class="addresslayout" v-else>
+        <div class="addresscontent">
+          <div class="addresscolumnleft">
+            <form @submit.prevent="makeOrder">
+              <div class="inputgroup">
+                <label for="city">Город</label>
+                <input type="text" id="city" name="city" v-model="contactFields.city">
+              </div>
+              <div class="inputgroup">
+                <label for="country">Страна</label>
+                <input type="text" id="country" name="country" v-model="contactFields.country">
+              </div>
+              <div class="inputgroup">
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" v-model="contactFields.phone">
+              </div>
+              <div class="inputgroup">
+                <label for="email">Почта</label>
+                <input type="email" id="email" name="email" v-model="contactFields.email" required>
+              </div>
+              <div class="inputgroup">
+                <label for="role">Кто вы:</label>
+                <select id="role" name="role" v-model="contactFields.role">
+                  <option>производитель семян</option>
+                  <option>фермер</option>
+                  <option>распределитель</option>
+                  <option>иное</option>
+                </select>
+              </div>
+              <div class="inputgroup">
+                <label for="other">Если другое, пожалуйста, укажите</label>
+                <input type="text" id="other" name="other" v-model="contactFields.other">
+              </div>
+              <div class="inputgroup">
+                <label for="captcha">Пожалуйста, введите этот код: <strong>7 C J 3</strong></label>
+                <input type="text" id="captcha" name="captcha" v-model="contactFields.captcha">
+              </div>
+              <input type="submit" value="Заказать">
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="address">
+      <div>
+        <h3>Наш адресс</h3>
         <hr class="green-line">
         <p>
-            AGRIDERA Seeds & Agriculture Ltd.<br>
-            P.O Box 103,<br>
-            Gedera 70750, Israel.<br>
-            Телефон: <a href="tel:+380661282294"><span style="color: #57984C;">+380661282294</span></a>
+          AGRIDERA Seeds & Agriculture Ltd.<br>
+          P.O Box 103,<br>
+          Gedera 70750, Israel.<br>
+          Телефон: <a href="tel:+380661282294"><span style="color: #57984C;">+380661282294</span></a>
         </p>
-    </div>
-</section>
+      </div>
+    </section>
+  </div>
+
 
 
 <footer class="footermenu">
@@ -147,6 +167,7 @@
   <footer class="footer">
     <p>AGRIDERA SEEDS & AGRICULTURE LTD. Р’В© 2020</p>
   </footer>
+  
   <script src="js/main.js"></script>
 </body>
 </html>

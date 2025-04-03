@@ -87,6 +87,10 @@
         <div class="addresscontent">
           <div class="addresscolumnleft">
             <form @submit.prevent="makeOrder">
+               <div class="inputgroup">
+                <label for="name">Имя *</label>
+                <input type="text" id="name" name="name" v-model="contactFields.name" required>
+              </div>
               <div class="inputgroup">
                 <label for="city">Город</label>
                 <input type="text" id="city" name="city" v-model="contactFields.city">

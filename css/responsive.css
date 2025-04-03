@@ -1,0 +1,206 @@
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+@media (max-width: 1024px) {
+  cont.html > div {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .contentimg {
+    width: 100%;
+    height: auto;
+  }
+
+  .search {
+    width: 250px;
+  }
+
+  .searchlinks {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .menu-checkbox:checked + .menu-toggle + .mobile-menu {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .search {
+    width: 200px;
+  }
+
+  .headerimage {
+    width: 100px;
+  }
+
+  .searchlinks {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .footermenu {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .footermenu ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footermenu li {
+    display: block;
+  }
+
+  .footerimages {
+    position: static;
+    margin-top: 10px;
+  }
+
+  .addresslayout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .addresscontent {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .addresscolumnleft,
+  .addresscolumnright {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .inputgroup {
+    width: 100%;
+  }
+
+  .columnswrapper {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    width: 100%;
+  }
+
+  .textbox, .imagebox {
+    width: 100%; 
+    text-align: center; 
+    margin-bottom: 20px;
+  }
+
+  .addtocart {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .highlightbox img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .backlink {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .tomatocontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+  }
+
+  .tomatocolumn {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center; 
+  }
+
+  .card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .image-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tomatosection h1, .tomatosection h2, .tomatosection p {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .highlightedtext {
+    padding: 0 20px;
+  }
+
+  .highlightedtext p {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .content h1 {
+    font-size: 48px;
+  }
+
+  .activities h1 {
+    font-size: 48px;
+  }
+
+  .search {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerimage {
+    width: 80px;
+  }
+
+  .content h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 400px) {
+  .content h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 320px) {
+  .content h1 {
+    font-size: 28px;
+  }
+}
+
